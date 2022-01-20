@@ -7,27 +7,10 @@ include("functions.php");
 
 $user_data = check_login($con);
 
-?>
-<?php
-if (isset($_POST["add"])) 
-{
-$id=$_POST['id'];
-$brandID=$_POST['brandID'];
-$categoryID=$_POST['categoryID'];
-$name=$_POST['name'];
-$gender=$_POST['gender']; 
-$volume=$_POST['volume']; 
-$price=$_POST['price']; 
-$image=$_POST['image']; 
-$descripton=$_POST['description']; 
-session_start();
-// $product=$_SESSION['product'];
- $cx=mysqli_connect("localhost","root","","parfum.art");
-$qy="insert into product values('$id','$brandID','$categoryID','$name','$gender','$volume','$price','$image',
-'$description')";
-		 mysqli_query($cx,$qy);
-		 mysqli_close($cx);    
-  }
+require_once 'inc/db.php';
+$categories = getCategories($conn);
+$brands = getBrands($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,16 +80,18 @@ $qy="insert into product values('$id','$brandID','$categoryID','$name','$gender'
                                 <label for="brand">Brand</label>
                                 <select required name="brand" id="brand">
                                     <option value="">Select</option>
-                                    <option value="gocci">Gocci</option>
-                                    <option value="handm">H&M</option>
+                                    <?php foreach($brands as $brand): ?>
+                                        <option value="<?= $brand['brandID'] ?>"><?= $brand['brandName'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="input-group">
                                 <label for="category">Category</label>
                                 <select required name="category" id="category">
                                     <option value="">Select</option>
-                                    <option value="gocci">Parfum</option>
-                                    <option value="handm">Eau de parfum</option>
+                                    <?php foreach($categories as $cat): ?>
+                                        <option value="<?= $cat['categoryID'] ?>"><?= $cat['catName'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
