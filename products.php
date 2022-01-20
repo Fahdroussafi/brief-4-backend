@@ -7,6 +7,16 @@ include("functions.php");
 
 $user_data = check_login($con);
 
+require_once 'inc/db.php';
+
+$products = getProducts($conn,$by = false,$value = false);
+
+if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
+    $by = $_POST['select'];
+    $value = $_POST['value'];
+    $products = getProducts($conn,$_POST['select'],"%$value%");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +77,13 @@ $user_data = check_login($con);
                 <!-- row -->
                 <div class="section--header">
                     <h3>All products</h3>
-                    <form>
-                        <select name="search" id="select">
-                            <option value="all">Select</option>
+                    <form action="products.php" method="POST">
+                        <select name="select" id="select">
+                            <option value="">Select</option>
+                            <option value="id">ID</option>
+                            <option value="name">Name</option>
                         </select>
-                        <input type="search" name="search" id="search" placeholder="Type something...">
+                        <input type="search" name="value" id="search" placeholder="Type something...">
                     </form>
                 </div>
                 <!-- table -->
@@ -91,15 +103,16 @@ $user_data = check_login($con);
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($products as $product): ?>
                             <tr>
-                                <td>001</td>
-                                <td>sauvage</td>
-                                <td>sauvage</td>
-                                <td class="category">parfum</td>
+                                <td><?= $product['id'] ?></td>
+                                <td><?= $product['name'] ?></td>
+                                <td>brand</td>
+                                <td class="category">category</td>
                                 <td class="product-img"><img src="./assets/products/1.jpg" alt="1"></td>
                                 <td class="quantity">3</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
+                                <td><?= $product['volume'] ?></td>
+                                <td><?= $product['price'] ?>$</td>
                                 <td>
                                     <ul class="action--list">
                                         <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
@@ -109,114 +122,7 @@ $user_data = check_login($con);
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>sauvage</td>
-                                <td>sauvage</td>
-                                <td class="category">parfum</td>
-                                <td class="product-img"><img src="./assets/products/1_1.jpg" alt="11"></td>
-                                <td class="quantity">12</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>100</td>
-                                <td>tom ford black orchid</td>
-                                <td>paco rabanne</td>
-                                <td class="category">parfum</td>
-                                <td class="product-img"><img src="./assets/products/1_2.jpg" alt="11"></td>
-                                <td class="quantity">24</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>100</td>
-                                <td>scandal</td>
-                                <td>jean paul gaultier</td>
-                                <td class="category">parfum</td>
-                                <td class="product-img"><img src="./assets/products/1_3.jpg" alt="11"></td>
-                                <td class="quantity">88</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>100</td>
-                                <td>libre</td>
-                                <td>yves saint laurent</td>
-                                <td class="category">eau de parum</td>
-                                <td class="product-img"><img src="./assets/products/1_4.jpg" alt="11"></td>
-                                <td class="quantity">30</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>100</td>
-                                <td>dolce & gabanna</td>
-                                <td>paco rabanne</td>
-                                <td class="category">eau de cologne</td>
-                                <td class="product-img"><img src="./assets/products/1_5.jpg" alt="11"></td>
-                                <td class="quantity">43</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>170</td>
-                                <td>GOCCI</td>
-                                <td>gocci</td>
-                                <td class="category">eau de cologne</td>
-                                <td class="product-img"><img src="./assets/products/1_6.jpg" alt="11"></td>
-                                <td class="quantity">3</td>
-                                <td>100 ML</td>
-                                <td>56$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
+                            <?php endforeach;?>
                         </tbody>
                     </table>
                 </div>
