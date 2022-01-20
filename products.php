@@ -9,12 +9,17 @@ $user_data = check_login($con);
 
 require_once 'inc/db.php';
 
-$products = getProducts($conn,$by = false,$value = false);
+$products = getProducts($conn);
 
 if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
     $by = $_POST['select'];
     $value = $_POST['value'];
-    $products = getProducts($conn,$_POST['select'],"%$value%");
+
+    if($by == "id" || $by == "name") $by = 'product.'.$by;
+    elseif($by == "cat") $by = "category.catName";
+    elseif($by == "brand") $by = "brand.brandName";
+
+    $products = getProducts($conn,$by,"%$value%");
 }
 
 ?>
@@ -82,6 +87,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
                             <option value="">Select</option>
                             <option value="id">ID</option>
                             <option value="name">Name</option>
+                            <option value="cat">Category</option>
+                            <option value="brand">Brand</option>
                         </select>
                         <input type="search" name="value" id="search" placeholder="Type something...">
                     </form>
@@ -107,10 +114,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
                             <tr>
                                 <td><?= $product['id'] ?></td>
                                 <td><?= $product['name'] ?></td>
-                                <td>brand</td>
-                                <td class="category">category</td>
+                                <td><?= $product['brandName'] ?></td>
+                                <td class="category"><?= $product['catName'] ?></td>
                                 <td class="product-img"><img src="./assets/products/1.jpg" alt="1"></td>
-                                <td class="quantity">3</td>
+                                <td class="quantity"><?= $product['quantity'] ?></td>
                                 <td><?= $product['volume'] ?></td>
                                 <td><?= $product['price'] ?>$</td>
                                 <td>
