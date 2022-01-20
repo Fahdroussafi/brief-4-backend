@@ -68,23 +68,23 @@ $user_data = check_login($con);
                     <form>
                         <div class="input-group">
                             <label for="id">ID (i.e: national identity card number)</label>
-                            <input type="text" name="id" id="id" placeholder="EX63763">
+                            <input required type="text" name="id" id="id" placeholder="EX63763">
                         </div>
                         <div class="input-group">
                             <label for="username">Username</label>
-                            <input type="text" name="username" id="username" placeholder="Enter employee's username">
+                            <input required type="text" name="username" id="username" placeholder="Enter employee's username">
                         </div>
                         <div class="input-group">
                             <label for="phone">Phone number</label>
-                            <input type="tel" name="phone" id="phone" placeholder="+212 xxx xxx xxx">
+                            <input required type="tel" name="phone" id="phone" placeholder="+212 xxx xxx xxx">
                         </div>
                         <div class="input-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="employee@email.com">
+                            <input required type="email" name="email" id="email" placeholder="employee@email.com">
                         </div>
                         <div class="input-group">
                             <label for="passwd">Password</label>
-                            <input type="passwd" name="passwd" id="passwd" placeholder="Enter the employee's password">
+                            <input required type="passwd" name="passwd" id="passwd" placeholder="Enter the employee's password">
                         </div>
                         <div class="btn-group">
                             <button type="submit">Submit</button>

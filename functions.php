@@ -39,3 +39,23 @@ function random_num($length)
 
 	return $text;
 }
+
+
+if (isset($_POST["add"])) {
+	$id = $_POST['id'];
+	$brandID = $_POST['brandID'];
+	$categoryID = $_POST['categoryID'];
+	$name = $_POST['name'];
+	$gender = $_POST['gender'];
+	$volume = $_POST['volume'];
+	$price = $_POST['price'];
+	$image = $_POST['image'];
+	$descripton = $_POST['description'];
+	session_start();
+	// $product=$_SESSION['product'];
+	$cx = mysqli_connect("localhost", "root", "", "parfum.art");
+	$qy = "insert into product values('$id','$brandID','$categoryID','$name','$gender','$volume','$price','$image',
+'$description')";
+	mysqli_query($cx, $qy);
+	mysqli_close($cx);
+}

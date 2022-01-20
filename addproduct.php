@@ -8,6 +8,27 @@ include("functions.php");
 $user_data = check_login($con);
 
 ?>
+<?php
+if (isset($_POST["add"])) 
+{
+$id=$_POST['id'];
+$brandID=$_POST['brandID'];
+$categoryID=$_POST['categoryID'];
+$name=$_POST['name'];
+$gender=$_POST['gender']; 
+$volume=$_POST['volume']; 
+$price=$_POST['price']; 
+$image=$_POST['image']; 
+$descripton=$_POST['description']; 
+session_start();
+// $product=$_SESSION['product'];
+ $cx=mysqli_connect("localhost","root","","parfum.art");
+$qy="insert into product values('$id','$brandID','$categoryID','$name','$gender','$volume','$price','$image',
+'$description')";
+		 mysqli_query($cx,$qy);
+		 mysqli_close($cx);    
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,11 +91,11 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="parfume-name">Name</label>
-                                <input type="text" name="name" id="parfume-name" placeholder="Enter parfume name...">
+                                <input required type="text" name="name" id="parfume-name" placeholder="Enter parfume name...">
                             </div>
                             <div class="input-group">
                                 <label for="brand">Brand</label>
-                                <select name="brand" id="brand">
+                                <select required name="brand" id="brand">
                                     <option value="">Select</option>
                                     <option value="gocci">Gocci</option>
                                     <option value="handm">H&M</option>
@@ -82,7 +103,7 @@ $user_data = check_login($con);
                             </div>
                             <div class="input-group">
                                 <label for="category">Category</label>
-                                <select name="category" id="category">
+                                <select required name="category" id="category">
                                     <option value="">Select</option>
                                     <option value="gocci">Parfum</option>
                                     <option value="handm">Eau de parfum</option>
@@ -93,15 +114,15 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="volume">Volume</label>
-                                <input value="1" min="1" type="number" name="volume" id="volume">
+                                <input required value="1" min="1" type="number" name="volume" id="volume">
                             </div>
                             <div class="input-group">
                                 <label for="price">Price</label>
-                                <input value="1" min="1" type="number" name="price" id="price">
+                                <input required value="1" min="1" type="number" name="price" id="price">
                             </div>
                             <div class="input-group">
                                 <label for="quantity">Quantity</label>
-                                <input value="1" min="1" type="number" name="quantity" id="quantity">
+                                <input required value="1" min="1" type="number" name="quantity" id="quantity">
                             </div>
                         </div>
                         <!-- row -->
@@ -111,11 +132,11 @@ $user_data = check_login($con);
                                 <div class="gender">
                                     <div class="radio-group">
                                         <label for="male">Male</label>
-                                        <input type="radio" name="gender" id="male">
+                                        <input required type="radio" name="gender" id="male">
                                     </div>
                                     <div class="radio-group">
                                         <label for="female">Female</label>
-                                        <input type="radio" name="gender" id="female">
+                                        <input required type="radio" name="gender" id="female">
                                     </div>
                                 </div>
                             </div>
@@ -131,11 +152,11 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="image">Image</label>
-                                <input type="file" name="image" id="image">
+                                <input required type="file" name="image" id="image">
                             </div>
                         </div>
                         <div class="btn-group">
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="add">Submit</button>
                         </div>
                     </form>
                 </div>
