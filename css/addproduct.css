@@ -1,0 +1,122 @@
+.section--form{
+    width: 90%;
+    max-width: 900px;
+    background-color: var(--clr-light-1);
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+
+.section--form .title--mobile{
+    text-align: center;
+    transform: translateY(1.2em);
+}
+
+.form--wrapper{
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    padding: 10px 15px;
+}
+
+.form--wrapper .row{
+    display: flex;
+    gap: 1em;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.form--wrapper .row > *{
+    flex-grow: 1;
+}
+
+.form--wrapper .input-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form--wrapper label{
+    font-weight: var(--font-medium);
+    font-size: 1.25rem;
+    color: var(--clr-primary-darck);
+    margin-bottom: 0.4em;
+}
+
+.section--form input,
+.section--form select{
+    height: 50px;
+    border-radius: 15px;
+    border: solid 1px var(--clr-primary-darck);
+    padding:1em;
+}
+
+.section--form input{
+    font-size: 1rem;
+}
+
+/* gender */
+.gender,
+.radio-group{
+    display: flex;
+}
+
+.radio-group{
+    align-items: center;
+}
+
+.radio-group label{
+    margin-bottom: 0;
+    color: #000;
+}
+
+.radio-group:nth-child(2){
+    margin-left: 12px;
+}
+
+input[type="radio"]{
+    accent-color: var(--clr-primary-darck);
+    height: 20px;
+    width: 20px;
+    margin-left: 13px;
+}
+
+.desc{
+    height: 1500px;
+}
+
+.btn-group{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button[type="submit"]{
+    font-weight: var(--font-medium);
+    margin-top: 1.5em;
+    padding:.5em 1em;
+    font-size: 1.3rem;
+    color: var(--clr-primary);
+    border: solid 1px var(--clr-primary);
+    border-radius: 15px;
+    background-color: var(--clr-light-1);
+    cursor: pointer;
+}
+
+button[type="submit"]:hover{
+    background-color: var(--clr-primary);
+    color: var(--clr-light-1);
+}
+
+
+/* Add employee */
+.employee--form .form--wrapper{
+    width: 90%;
+    max-width: 580px;
+    padding: 35px;
+}
+
+.employee--form .input-group{
+    margin: 1.6em 0;
+}
+
+.employee--form button[type="submit"]{
+    margin-top: 0em;
+}
