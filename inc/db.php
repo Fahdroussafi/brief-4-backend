@@ -26,3 +26,32 @@ function getProducts($conn,$by = false,$value = false){
     return $data;
 }
 
+function getCategories($conn){
+    $sql = "SELECT * FROM `category`";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $categories = [];
+
+    while($rec = $result->fetch_assoc()){
+        array_push($categories,$rec);
+    }
+    
+    return $categories;
+}
+
+function getBrands($conn){
+    $sql = "SELECT * FROM `brand`";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $brands = [];
+
+    while($rec = $result->fetch_assoc()){
+        array_push($brands,$rec);
+    }
+    
+    return $brands;
+}
