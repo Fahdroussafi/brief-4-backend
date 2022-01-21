@@ -11,6 +11,24 @@ require_once 'inc/db.php';
 $categories = getCategories($conn);
 $brands = getBrands($conn);
 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    $name = $_POST['name'];
+    $brandID = $_POST['brand'];
+    $catID = $_POST['category'];
+    $volume = $_POST['volume'];
+    $price = $_POST['price'];
+    $gender = $_POST['gender'];
+    $desc = $_POST['desc'];
+    $image = $_POST['image'];
+    $qty = $_POST['quantity'];
+    
+    if (insertProduct($conn,$name,$brandID,$catID,$volume,$price,$gender,$desc,$image,$qty)>0)
+    echo '<script>alert("Product added successfully")</script>';
+    else echo '<script>alert("Product added successfully")</script>';
+    
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +87,7 @@ $brands = getBrands($conn);
             <section class="section section--form">
                 <h2 class="title--mobile">Add Product</h2>
                 <div class="form--wrapper">
-                    <form>
+                    <form action="addproduct.php" method="POST">
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">
@@ -117,11 +135,11 @@ $brands = getBrands($conn);
                                 <div class="gender">
                                     <div class="radio-group">
                                         <label for="male">Male</label>
-                                        <input required type="radio" name="gender" id="male">
+                                        <input required type="radio" value="male" name="gender" id="male">
                                     </div>
                                     <div class="radio-group">
                                         <label for="female">Female</label>
-                                        <input required type="radio" name="gender" id="female">
+                                        <input required type="radio" value="female" name="gender" id="female">
                                     </div>
                                 </div>
                             </div>

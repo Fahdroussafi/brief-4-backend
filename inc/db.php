@@ -2,13 +2,31 @@
 
 require_once 'connect.php';
 
+function insertProduct($conn,$name,$brandID,$catID,$volume,$price,$gender,$desc,$image,$qty){
+    $sql = "INSERT INTO `product` (`name`,`brandID`,`categoyID`,`volume`,`price`,`gender`,`image`,`description`) VALUES (?,?,?,?,?,?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('siiddsss',$name,$brandID,$catID,$volume,$price,$gender,$image,$desc);
+    
+    if ($stmt->execute()) {
+        $lastInsertedId = $conn->insert_id;
+        for($i=0;$i<$qty;$i++){
+            $stmt = $conn->prepare("INSERT INTO `stock` (`ref`, `id`) VALUES (NULL, ?)");
+            $stmt->bind_param('i',$lastInsertedId);
+            $stmt->execute();
+        }
+        return $conn->affected_rows;
+    }
+
+    return false;
+}
+
 function getProducts($conn,$by = false,$value = false){
 
     $sql = "SELECT product.*,category.catName,brand.brandName, count(stock.id) as quantity 
     FROM (brand JOIN product JOIN category ON brand.brandID = product.brandID 
     AND product.categoyID = category.categoryID) 
     JOIN stock on stock.id = product.id";
-
+ 
     if($by){
         $stmt = $conn->prepare("$sql WHERE $by LIKE ? GROUP BY product.id");
         $stmt->bind_param("s", $value);
