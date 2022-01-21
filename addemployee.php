@@ -7,6 +7,21 @@ include("functions.php");
 
 $user_data = check_login($con);
 
+require_once 'inc/db.admin.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $employeeID = $_POST['id'];
+    $username = $_POST['username'];
+    $passwd = $_POST['passwd'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+
+    if (insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email) > 0)
+        echo '<script>alert("Employee added successfully")</script>';
+    else echo '<script>alert("Employee added successfully")</script>';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +80,7 @@ $user_data = check_login($con);
             <section class="section section--form employee--form">
                 <h2 class="title--mobile">Add Employee</h2>
                 <div class="form--wrapper">
-                    <form>
+                    <form action="addemployee.php" method="POST">
                         <div class="input-group">
                             <label for="id">ID (i.e: national identity card number)</label>
                             <input required type="text" name="id" id="id" placeholder="EX63763">
@@ -87,7 +102,7 @@ $user_data = check_login($con);
                             <input required type="passwd" name="passwd" id="passwd" placeholder="Enter the employee's password">
                         </div>
                         <div class="btn-group">
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="add">Submit</button>
                         </div>
                     </form>
                 </div>

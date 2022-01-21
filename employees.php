@@ -7,6 +7,15 @@ include("functions.php");
 
 $user_data = check_login($con);
 
+require_once 'inc/db.admin.php';
+
+$employees = getEmployees($conn);
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    $employees = getEmployees($conn);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +76,14 @@ $user_data = check_login($con);
                 <!-- row -->
                 <div class="section--header">
                     <h3>All Employees</h3>
-                    <form>
-                        <select name="search" id="select">
-                            <option value="all">Select</option>
+                    <form action="employees.php" method="POST">
+                        <select name="select" id="select">
+                            <option value="">Select</option>
+                            <option value="id">employeeID</option>
+                            <option value="username">Username</option>
+                            <option value="email">Email</option>
                         </select>
-                        <input type="search" name="search" id="search" placeholder="Type something...">
+                        <input type="search" name="value" id="search" placeholder="Type something...">
                     </form>
                 </div>
                 <!-- table -->
@@ -87,66 +99,21 @@ $user_data = check_login($con);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>HH123456</td>
-                                <td>Hamza</td>
-                                <td>+121 6986543</td>
-                                <td>h.gassai@gmail.com</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BB199456</td>
-                                <td>yassine_js</td>
-                                <td>+121 6986543</td>
-                                <td>hj.yassine@gmail.com</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>GG098456</td>
-                                <td>Nawal</td>
-                                <td>+121 6986543</td>
-                                <td>nawal273@gmail.com</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>HH764456</td>
-                                <td>Laila_fs</td>
-                                <td>+121 6986543</td>
-                                <td>fs.motawakil@gmail.com</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>G73563763</td>
-                                <td>Ayoub_uyz</td>
-                                <td>+121 6986543</td>
-                                <td>ay27535@gmail.com</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
-                                    </ul>
-                                </td>
-                            </tr>
+                            <?php foreach ($employees as $employee) : ?>
+                                <tr>
+                                    <td><?= $employee['employeeID'] ?></td>
+                                    <td><?= $employee['username'] ?></td>
+                                    <td><?= $employee['phone'] ?></td>
+                                    <td><?= $employee['email'] ?></td>
+                                    <td>
+                                        <ul class="action--list">
+                                            <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
+                                            <li><a href="#"><img src="./assets/img/edit.png" alt=""></a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
