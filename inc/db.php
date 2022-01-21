@@ -20,6 +20,12 @@ function insertProduct($conn,$name,$brandID,$catID,$volume,$price,$gender,$desc,
     return false;
 }
 
+function deleteProduct($conn,$productID){
+    $stmt = $conn->prepare("DELETE FROM `product` WHERE `product`.`id` = ?");
+    $stmt->bind_param('i',$productID);
+    return $stmt->execute();
+}
+
 function getProducts($conn,$by = false,$value = false){
 
     $sql = "SELECT product.*,category.catName,brand.brandName, count(stock.id) as quantity 

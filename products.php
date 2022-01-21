@@ -22,6 +22,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
     $products = getProducts($conn,$by,"%$value%");
 }
 
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
+    if (deleteProduct($conn,$_POST['id'])) {
+        echo "<script>alert('Item deleted successfully.')</script>";
+        header('location:products.php');
+    }else echo "<script>alert('Oops somthing went wrong!')</script>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +132,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
                                         <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
                                         <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
                                         </li>
-                                        <li><a href="#"><img src="./assets/img/trash-alt.png" alt=""></a></li>
+                                        <li>
+                                            <form method="POST" action="products.php">
+                                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                                <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </td>
                             </tr>
