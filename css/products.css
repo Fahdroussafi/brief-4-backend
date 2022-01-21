@@ -6,9 +6,6 @@ section {
   margin-top: 125px;
   /* margin top /!\ */
 }
-body {
-  overflow:hidden;
-}
 
 .section--header {
   display: flex;
