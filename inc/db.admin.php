@@ -11,6 +11,7 @@ function insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email)
     return $stmt->execute();
 }
 
+
 function getEmployees($conn)
 {
     $result = $conn->query("SELECT * FROM employee");
@@ -23,3 +24,12 @@ function getEmployees($conn)
 
     return $employees;
 }
+
+function deleteEmployee($conn, $employeeID)
+{
+
+    $stmt = $conn->prepare("DELETE FROM `employee` WHERE `employee`.`employeeID` = ?");
+    $stmt->bind_param('s', $employeeID);
+    return $stmt->execute();
+}
+
