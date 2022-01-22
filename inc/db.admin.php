@@ -2,6 +2,14 @@
 
 require_once 'connect.php';
 
+function idExist($conn,$id){
+    $stmt = $conn->prepare("SELECT * FROM employee WHERE employeeID=?");
+    $stmt->bind_param('s',$id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->num_rows > 0;
+}
+
 function insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email)
 {
     $sql = "INSERT INTO `employee` (`employeeID`,`username`,`passwd`,`phone`,`email`) VALUES (?,?,?,?,?)";
