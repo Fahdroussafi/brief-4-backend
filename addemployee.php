@@ -9,6 +9,7 @@ $user_data = check_login($con);
 
 require_once 'inc/db.admin.php';
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $employeeID = $_POST['id'];

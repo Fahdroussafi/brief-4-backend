@@ -9,14 +9,22 @@ $user_data = check_login($con);
 
 require_once 'inc/db.admin.php';
 
+
 $employees = getEmployees($conn);
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $employees = getEmployees($conn);
 }
 
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
+    if (deleteEmployee($conn, $_POST['id'])) {
+        echo "<script>alert('employee deleted successfully.')</script>";
+        header('location:employees.php');
+    } else echo "<script>alert('Oops somthing went wrong!')</script>";
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,8 +116,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     <td>
                                         <ul class="action--list">
                                             <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                            <li><a href="#"><img src="./assets/img/edit.png" alt=""></a>
+                                            <li>
+                                                <form method="POST" action="employees.php">
+                                                    <input type="hidden" name="id" value="<?= $employee['employeeID'] ?>">
+                                                    <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
                                             </li>
+                                            </form>
                                         </ul>
                                     </td>
                                 </tr>
