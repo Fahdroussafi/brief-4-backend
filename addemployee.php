@@ -17,9 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone = $_POST['phone'];
     $email = $_POST['email'];
 
+    if (idExist($conn,$employeeID)) {
+        header("location:addemployee.php?idexisterr=$employeeID");
+    }
+
     if (insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email) > 0)
         echo '<script>alert("Employee added successfully")</script>';
     else echo '<script>alert("Employee added successfully")</script>';
+}
+
+if (isset($_GET['idexisterr']) && $_GET['idexisterr']){
+    echo "<script>alert('ID: ". htmlentities($_GET['idexisterr']) ."   already exist!');</script>";
 }
 
 ?>
