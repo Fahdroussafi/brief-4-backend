@@ -11,22 +11,23 @@ require_once 'inc/db.php';
 
 $products = getProducts($conn);
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
+if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])) {
     $by = $_POST['select'];
     $value = $_POST['value'];
 
-    if($by == "id" || $by == "name") $by = 'product.'.$by;
-    elseif($by == "cat") $by = "category.catName";
-    elseif($by == "brand") $by = "brand.brandName";
+    if ($by == "id" || $by == "name")
+        $by = 'product.' . $by;
+    elseif ($by == "cat") $by = "category.catName";
+    elseif ($by == "brand") $by = "brand.brandName";
 
-    $products = getProducts($conn,$by,"%$value%");
+    $products = getProducts($conn, $by, "%$value%");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
-    if (deleteProduct($conn,$_POST['id'])) {
+    if (deleteProduct($conn, $_POST['id'])) {
         echo "<script>alert('Item deleted successfully.')</script>";
         header('location:products.php');
-    }else echo "<script>alert('Oops somthing went wrong!')</script>";
+    } else echo "<script>alert('Oops somthing went wrong!')</script>";
 }
 
 ?>
@@ -117,31 +118,35 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($products as $product): ?>
-                            <tr>
-                                <td><?= $product['id'] ?></td>
-                                <td><?= $product['name'] ?></td>
-                                <td><?= $product['brandName'] ?></td>
-                                <td class="category"><?= $product['catName'] ?></td>
-                                <td class="product-img"><img src="./assets/products/1.jpg" alt="1"></td>
-                                <td class="quantity"><?= $product['quantity'] ?></td>
-                                <td><?= $product['volume'] ?></td>
-                                <td><?= $product['price'] ?>$</td>
-                                <td>
-                                    <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
-                                        <li><a href="updateproduct.php"><img src="./assets/img/edit.png" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <form method="POST" action="products.php">
-                                                <input type="hidden" name="id" value="<?= $product['id'] ?>">
-                                                <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <?php endforeach;?>
+                            <?php foreach ($products as $product) : ?>
+                                <tr>
+                                    <td><?= $product['id'] ?></td>
+                                    <td><?= $product['name'] ?></td>
+                                    <td><?= $product['brandName'] ?></td>
+                                    <td class="category"><?= $product['catName'] ?></td>
+                                    <td class="product-img"><img src="./assets/products/1.jpg" alt="1"></td>
+                                    <td class="quantity"><?= $product['quantity'] ?></td>
+                                    <td><?= $product['volume'] ?></td>
+                                    <td><?= $product['price'] ?>$</td>
+                                    <td>
+                                        <ul class="action--list">
+                                            <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
+                                            <li>
+                                                <form method="POST" action="updateproduct.php">
+                                                    <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                                    <button style="background:transparent;border:none;" name="update" type="submit"><img src="./assets/img/edit.png" alt=""></button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <form method="POST" action="products.php">
+                                                    <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                                    <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
