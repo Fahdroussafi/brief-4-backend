@@ -4,6 +4,7 @@ auth('admin');
 
 require_once 'inc/db.admin.php';
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $employeeID = $_POST['id'];

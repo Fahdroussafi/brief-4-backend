@@ -19,6 +19,7 @@ function insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email)
     return $stmt->execute();
 }
 
+
 function getEmployees($conn)
 {
     $result = $conn->query("SELECT * FROM employee");

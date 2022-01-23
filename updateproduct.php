@@ -20,6 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
     // TODO
 }
 
+
+require_once 'inc/db.php';
+
+$product = [];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $categories = getCategories($conn);
+    $brands = getBrands($conn);
+    $product = getProducts($conn, 'product.id', $id)[0];
+} else {
+    header('location:products.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
             <section class="section section--form">
                 <h2 class="title--mobile">Update Product</h2>
                 <div class="form--wrapper">
-                    <form>
+                    <form action="updateproduct.php method=" POST">
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">
@@ -147,13 +161,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
                         <div class="row">
                             <div class="input-group">
                                 <label for="image">Image</label>
-                                <input required type="file" name="image" id="image">
+                                <input required type="file" value="<?= $product['image']; ?>" name="image" id="image">
                             </div>
                         </div>
                         <div class="btn-group">
-                            <button type="submit">Update</button>
+                            <button type="submit" value="update" onClick="update()" name="update">Update</button>
                         </div>
                     </form>
+                    <script>
+                        function update() {
+                            var x;
+                            if (confirm("Updated data Sucessfully") == true) {
+                                x = "update";
+                            }
+                        }
+                    </script>
                 </div>
             </section>
         </main>

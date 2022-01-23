@@ -4,6 +4,7 @@ auth('admin');
 
 require_once 'inc/db.admin.php';
 
+
 $employees = getEmployees($conn);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['select'])) {
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,6 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                                                 <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
                                             </form>
                                             </li>
+                                            </form>
                                         </ul>
                                     </td>
                                 </tr>

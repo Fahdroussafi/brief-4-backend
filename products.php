@@ -6,22 +6,23 @@ require_once 'inc/db.php';
 
 $products = getProducts($conn);
 
-if($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])){
+if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])) {
     $by = $_POST['select'];
     $value = $_POST['value'];
 
-    if($by == "id" || $by == "name") $by = 'product.'.$by;
-    elseif($by == "cat") $by = "category.catName";
-    elseif($by == "brand") $by = "brand.brandName";
+    if ($by == "id" || $by == "name")
+        $by = 'product.' . $by;
+    elseif ($by == "cat") $by = "category.catName";
+    elseif ($by == "brand") $by = "brand.brandName";
 
-    $products = getProducts($conn,$by,"%$value%");
+    $products = getProducts($conn, $by, "%$value%");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
-    if (deleteProduct($conn,$_POST['id'])) {
+    if (deleteProduct($conn, $_POST['id'])) {
         echo "<script>alert('Item deleted successfully.')</script>";
         header('location:products.php');
-    }else echo "<script>alert('Oops somthing went wrong!')</script>";
+    } else echo "<script>alert('Oops somthing went wrong!')</script>";
 }
 
 ?>
