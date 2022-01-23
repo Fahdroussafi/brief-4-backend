@@ -158,10 +158,32 @@ table td > img {
   height: 100%;
 }
 
+.action--list button{
+  cursor: pointer;
+}
+
 @media (max-width: 1200px) {
   .category,
   .product-img,
   .quantity {
     display: none;
   }
+}
+
+.sell-img,
+.update-img,
+.delete-img{
+  height: 25px;
+}
+
+.sell-img{
+  width: 58px;
+}
+
+.update-img{
+  width: 28.13px;
+}
+
+.delete-img{
+  width: 22.21px;
 }

@@ -126,17 +126,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                                 <td><?= $product['price'] ?>$</td>
                                 <td>
                                     <ul class="action--list">
-                                        <li><a href="#"><img src="./assets/img/sell.png" alt=""></a></li>
+                                        <li>
+                                            <form method="POST" action="updateproduct.php">
+                                                <input type="hidden" name="id" value="<?= $product['ref'] ?>">
+                                                <button style="background:transparent;border:none;" name="sell" type="submit"><img class="sell-img" src="./assets/img/sell.png" alt=""></button>
+                                            </form>
+                                        </li>
                                         <li>
                                             <form method="POST" action="updateproduct.php">
                                                 <input type="hidden" name="id" value="<?= $product['id'] ?>">
-                                                <button style="background:transparent;border:none;" name="update" type="submit"><img src="./assets/img/edit.png" alt=""></button>
+                                                <button style="background:transparent;border:none;" name="update" type="submit"><img class="update-img" src="./assets/img/edit.png" alt=""></button>
                                             </form>
                                         </li>
                                         <li>
                                             <form method="POST" action="products.php">
                                                 <input type="hidden" name="id" value="<?= $product['id'] ?>">
-                                                <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
+                                                <button style="background:transparent;border:none;" name="delete" type="submit"><img class="delete-img" src="./assets/img/trash-alt.png" alt=""></button>
                                             </form>
                                         </li>
                                     </ul>
