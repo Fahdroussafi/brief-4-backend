@@ -1,14 +1,26 @@
 <?php
-session_start();
+require_once 'inc/auth.php';
+auth();
 
-include("connection.php");
-include("functions.php");
+require_once 'inc/db.php';
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
 
-$user_data = check_login($con);
+    $id = $_POST['id'];
+
+    $brands = getBrands($conn);
+    $categories = getCategories($conn);
+    $product = getProducts($conn,'product.id',$id)[0];
+
+}else{
+    header('location:products.php');
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
+    // TODO
+}
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,9 +45,9 @@ $user_data = check_login($con);
             </div>
             <nav class="nav">
                 <ul>
-                    <li class="nav-link"><a href="dashbord.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
+                    <li class="nav-link"><a href="dashboard.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
                     <li class="nav-link"><a href="products.php"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
-                    <li class="nav-link current"><a href="#"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
+                    <li class="nav-link"><a href="addproduct.php"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
                     <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
                     <li class="nav-link"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add
                                 Employee</span></a></li>
@@ -53,8 +65,8 @@ $user_data = check_login($con);
                             <img src="./assets/img/avatar.svg" alt="avatar">
                         </div>
                         <div>
-                            <div class="username"><?= $user_data['username']; ?> </div>
-                            <div class="email"><?= $user_data['email']; ?></div>
+                            <div class="username"><?= $_SESSION['user']['username'] ?></div>
+                            <div class="email"><?= $_SESSION['user']['email'] ?></div>
                         </div>
                     </div>
                     <div class="logout">
@@ -71,22 +83,24 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="parfume-name">Name</label>
-                                <input required type="text" name="name" id="parfume-name" placeholder="Enter parfume name...">
+                                <input value="<?= $product['name'] ?>" required type="text" name="name" id="parfume-name" placeholder="Enter parfume name...">
                             </div>
                             <div class="input-group">
                                 <label for="brand">Brand</label>
                                 <select required name="brand" id="brand">
-                                    <option value="">Select</option>
-                                    <option value="gocci">Gocci</option>
-                                    <option value="handm">H&M</option>
+                                    <option value="">Select</option>                                 
+                                    <?php foreach ($brands as $brand) : ?>
+                                        <option value="<?= $brand['brandID'] ?>"><?= $brand['brandName'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="input-group">
                                 <label for="category">Category</label>
                                 <select required name="category" id="category">
                                     <option value="">Select</option>
-                                    <option value="gocci">Parfum</option>
-                                    <option value="handm">Eau de parfum</option>
+                                    <?php foreach ($categories as $cat) : ?>
+                                        <option value="<?= $cat['categoryID'] ?>"><?= $cat['catName'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
@@ -94,15 +108,15 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="volume">Volume</label>
-                                <input required value="1" min="1" type="number" name="volume" id="volume">
+                                <input required value="<?= $product['volume'] ?>" min="1" type="number" name="volume" id="volume">
                             </div>
                             <div class="input-group">
                                 <label for="price">Price</label>
-                                <input required value="1" min="1" type="number" name="price" id="price">
+                                <input required value="<?= $product['price'] ?>" min="1" type="number" name="price" id="price">
                             </div>
                             <div class="input-group">
                                 <label for="quantity">Quantity</label>
-                                <input required value="1" min="1" type="number" name="quantity" id="quantity">
+                                <input required value="<?= $product['quantity'] ?>" min="1" type="number" name="quantity" id="quantity">
                             </div>
                         </div>
                         <!-- row -->
@@ -125,7 +139,7 @@ $user_data = check_login($con);
                         <div class="row">
                             <div class="input-group">
                                 <label for="desc">Description</label>
-                                <input class="desc" type="text" name="desc" placeholder="Enter description...">
+                                <input value="<?= $product['description'] ?>" class="desc"  type="text" name="desc" placeholder="Enter description...">
                             </div>
                         </div>
                         <!-- row -->

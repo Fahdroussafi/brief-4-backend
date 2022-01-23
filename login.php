@@ -2,38 +2,32 @@
 
 session_start();
 
-include("connection.php");
-include("functions.php");
+require_once 'inc/db.login.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-	//something was posted
-	$username = $_POST['username'];
+
+	$user = $_POST['username'];
 	$passwd = $_POST['passwd'];
 
-	if (!empty($username) && !empty($passwd) && !is_numeric($username)) {
-
-		//read from database
-		$query = "select * from admin where username = '$username' limit 1";
-		$result = mysqli_query($con, $query);
-
-		if ($result) {
-			if ($result && mysqli_num_rows($result) > 0) {
-
-				$user_data = mysqli_fetch_assoc($result);
-
-				if ($user_data['passwd'] === $passwd) {
-
-					$_SESSION['adminID'] = $user_data['adminID'];
-					header("Location: dashbord.php");
-					die;
-				}
+	if (!empty($user) && !empty($passwd)) {
+		if (filter_var($user, FILTER_VALIDATE_EMAIL)) {
+			if ($info = adminExist($conn,$user,$passwd)) {
+				$_SESSION['logedIn'] = true;
+				$_SESSION['role'] = 'admin';
+				$_SESSION['user'] = $info;
+				header('location:dashboard.php');
 			}
+		}elseif($info = employeeExist($conn,$user,$passwd)){
+				$_SESSION['logedIn'] = true;
+				$_SESSION['role'] = 'employee';
+				$_SESSION['user'] = $info;
+				header('location:dashboard.php');
+		}else{
+			echo "<script>alert('Username or password uncorrect!')</script>";
 		}
-
-		echo "wrong username or password!";
 	} else {
-		echo "wrong username or password!";
+		echo "<script>alert('All fields are required!')</script>";
 	}
 }
 

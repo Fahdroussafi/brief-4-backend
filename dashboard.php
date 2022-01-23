@@ -1,15 +1,7 @@
 <?php
-session_start();
-
-include("connection.php");
-include("functions.php");
-
-
-$user_data = check_login($con);
-
+require_once 'inc/auth.php';
+auth();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,9 +47,8 @@ $user_data = check_login($con);
                             <img src="./assets/img/avatar.svg" alt="avatar">
                         </div>
                         <div>
-                            <div class="username"><?= $user_data['username']; ?> </div>
-
-                            <div class="email"><?= $user_data['email']; ?></div>
+                            <div class="username"><?= $_SESSION['user']['username'] ?></div>
+                            <div class="email"><?= $_SESSION['user']['email'] ?></div>
                         </div>
                     </div>
                     <div class="logout">

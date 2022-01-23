@@ -1,11 +1,6 @@
 <?php
-session_start();
-
-include("connection.php");
-include("functions.php");
-
-
-$user_data = check_login($con);
+require_once 'inc/auth.php';
+auth('admin');
 
 require_once 'inc/db.admin.php';
 
@@ -41,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </div>
             <nav class="nav">
                 <ul>
-                    <li class="nav-link"><a href="dashbord.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
+                    <li class="nav-link"><a href="dashboard.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
                     <li class="nav-link"><a href="products.php"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
                     <li class="nav-link"><a href="addproduct.php"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
                     <li class="nav-link current"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
@@ -61,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <img src="./assets/img/avatar.svg" alt="avatar">
                         </div>
                         <div>
-                            <div class="username"><?= $user_data['username']; ?></div>
-                            <div class="email"><?= $user_data['email']; ?></div>
+                            <div class="username"><?= $_SESSION['user']['username'] ?></div>
+                            <div class="email"><?= $_SESSION['user']['email'] ?></div>
                         </div>
                     </div>
                     <div class="logout">
