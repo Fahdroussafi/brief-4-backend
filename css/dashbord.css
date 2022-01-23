@@ -1,134 +1,68 @@
-
-label {
-  /* margin-left: 24px; */
-  /* margin-right: 24px; */
-  font-family: Roboto;
-  font-weight: bold;
-  font-size: 30;
+.cards{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
 }
 
-/* Set a style for all buttons */
-button {
-  background-color: #56b581;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 12px 20px;
-  /* margin: 100px 0; */
-  width: 300px;
-  border-radius: 70px;
-  display: inline-block;
-  border: 2px solid #56b581;
-  box-sizing: border-box;
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-top: 70px;
-  font-family: Roboto;
-  font-size: 30;
+.cards > *{
+  flex-grow: 1;
+  flex-basis: 300px;
+}
+
+.card{
+  height: 140px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card-body{
+  height: 85px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.card .number{
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
-/* Add a hover effect for buttons */
-button:hover {
-  background-color: white;
-  color: #56b581;
-  transition: background-color 0.3s ease-in-out;
+.card-footer{
+  display: flex;
+  align-items: center;
+  height: 55px;
+  font-weight: bold;
+  color: #fff;
+  padding: 0 14px;
 }
 
-.main-container {
-  margin-left: 200px;
-  margin-right: 1200px;
+.total .card-footer{
+  background-color: #1c1cac;
+}
+.total .number{
+  color: #1c1cac;
 }
 
-.container-1 {
-  padding: 61px;
-  font-size: 26;
-  font-family: Roboto;
-  font-weight: bold;
-  width: 620px;
-  height: 285px;
-  background-color: #f8f8fa;
-  border-radius: 20px;
-  border-color: #707070;
-  border: 1px solid;
-  margin-top: 76px;
-  position: relative;
-  top: 76px;
-  /* bottom: 71px; */
-  /* padding-bottom: 100px; */
-  /* display: flex; */
+.sold .card-footer{
+  background-color: #2cb32c;
 }
-.container-2 {
-  padding: 61px;
-  font-size: 26;
-  font-family: Roboto;
-  font-weight: bold;
-  width: 246px;
-  height: 285px;
-  background-color: #f8f8fa;
-  border-radius: 20px;
-  border-color: #707070;
-  border: 1px solid;
-  margin-top: 76px;
-  position: relative;
-  top: -285px;
-  margin-left: 900px;
-  text-align: center;
-}
-.container-3 {
-  padding: 61px;
-  font-size: 26;
-  font-family: Roboto;
-  font-weight: bold;
-  width: 246px;
-  height: 285px;
-  background-color: #f8f8fa;
-  border-radius: 20px;
-  border-color: #707070;
-  border: 1px solid;
-  margin-top: 76px;
-  position: relative;
-  top: -645px;
-  margin-left: 1200px;
-  text-align: center;
-}
-.container-4 {
-  padding: 61px;
-  font-size: 26;
-  font-family: Roboto;
-  font-weight: bold;
-  width: 620px;
-  height: 285px;
-  background-color: #f8f8fa;
-  border-radius: 20px;
-  border-color: #707070;
-  border: 1px solid;
-  margin-top: 76px;
-  position: relative;
-  top: 76px;
-  /* bottom: 71px; */
-  /* padding-bottom: 100px; */
-  /* display: flex; */
-}
-.container-5 {
-  padding: 61px;
-  font-size: 26;
-  font-family: Roboto;
-  font-weight: bold;
-  width: 620px;
-  height: 285px;
-  background-color: #f8f8fa;
-  border-radius: 20px;
-  border-color: #707070;
-  border: 1px solid;
-  margin-top: 76px;
-  position: relative;
-  top: 76px;
-  /* bottom: 71px; */
-  /* padding-bottom: 100px; */
-  /* display: flex; */
+.sold .number{
+  color: #2cb32c;
 }
 
-p {
-  height: 48px;
+.categories .card-footer{
+  background-color: #f51212;
+}
+.categories .number{
+  color: #f51212;
+}
+
+.brands .card-footer{
+  background-color: #062b57;
+}
+.brands .number{
+  color: #062b57;
 }

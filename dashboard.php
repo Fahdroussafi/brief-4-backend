@@ -57,42 +57,47 @@ auth();
                     </div>
                 </div>
             </div>
-            <div class="main-container">
-                <div class="container-1">
-                    <div class="logo">
-                        <p>Welcome to</p>
-                        <h1><span class="p" style="height:0px;">P</span>
-                            <span class="middle" style="height:0px;">arfume</span>
-                            <span class="art" style="height:0px;">.art</span>
-                        </h1>
+            <!-- section : statistics -->
+            <section class="stats">
+                <div class="cards">
+                    <div class="card total">
+                        <div class="card-body">
+                            <span class="number">230</span>
+                            <img src="./assets/img/shopping-bag.svg">
+                        </div>
+                        <div class="card-footer">
+                            Total Products
+                        </div>
+                    </div>
+                    <div class="card sold">
+                        <div class="card-body">
+                            <span class="number">230</span>
+                            <img src="./assets/img/done-all.svg">
+                        </div>
+                        <div class="card-footer">
+                            Products Sold
+                        </div>
+                    </div>
+                    <div class="card categories">
+                        <div class="card-body">
+                            <span class="number">230</span>
+                            <img src="./assets/img/point-duplicate.svg">
+                        </div>
+                        <div class="card-footer">
+                            Categories
+                        </div>
+                    </div>
+                    <div class="card brands">
+                        <div class="card-body">
+                            <span class="number">230</span>
+                            <img src="./assets/img/spray-can.svg">
+                        </div>
+                        <div class="card-footer">
+                            Brands
+                        </div>
                     </div>
                 </div>
-
-                <div class="container-2">
-                    <p>Quantity</p>
-                    08
-                </div>
-
-                <div class="container-3">
-                    <p>Catergories</p><br>
-                    12
-                    <br>View All
-                </div>
-
-                <div class="container-4">
-
-                    <p>Products Sold</p>
-
-
-                </div>
-
-                <div class="container-5">
-                    <p>Quanity</p>
-                    08
-                </div>
-
-
-            </div>
+            </section>
         </main>
     </div>
 </body>
