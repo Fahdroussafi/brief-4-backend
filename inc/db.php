@@ -34,7 +34,7 @@ function getProducts($conn, $by = false, $value = false)
     $sql = "SELECT product.*,category.catName,brand.brandName, count(stock.id) as quantity 
     FROM (brand JOIN product JOIN category ON brand.brandID = product.brandID 
     AND product.categoyID = category.categoryID) 
-    JOIN stock on stock.id = product.id";
+    LEFT JOIN stock on stock.id = product.id";
 
     if ($by) {
         $stmt = $conn->prepare("$sql WHERE $by LIKE ? GROUP BY product.id");
