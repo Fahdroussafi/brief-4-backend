@@ -5,11 +5,23 @@ auth('admin');
 require_once 'inc/db.admin.php';
 
 $employees = getEmployees($conn);
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $employees = getEmployees($conn);
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['select'])) {
+    if (!empty($_POST['select'])) {
+        $searchBY = $_POST['select'];
+        $value = $_POST['value'];
+        $employees = searchEmloyee($conn,$searchBY,"%$value%");
+    }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
+    if (!empty($_POST['id'])) {
+        $employeeID = $_POST['id'];
+        if (deleteEmployee($conn,$employeeID)) {
+            header('location: employees.php');
+        }   
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -74,9 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <form action="employees.php" method="POST">
                         <select name="select" id="select">
                             <option value="">Select</option>
-                            <option value="id">employeeID</option>
+                            <option value="employeeID">By ID</option>
                             <option value="username">Username</option>
                             <option value="email">Email</option>
+                            <option value="phone">Phone</option>
                         </select>
                         <input type="search" name="value" id="search" placeholder="Type something...">
                     </form>
@@ -103,7 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                     <td>
                                         <ul class="action--list">
                                             <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
-                                            <li><a href="#"><img src="./assets/img/edit.png" alt=""></a>
+                                            <li>
+                                            <form method="POST" action="employees.php">
+                                                <input type="hidden" name="id" value="<?= $employee['employeeID'] ?>">
+                                                <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
+                                            </form>
                                             </li>
                                         </ul>
                                     </td>

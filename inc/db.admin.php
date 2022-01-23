@@ -31,3 +31,23 @@ function getEmployees($conn)
 
     return $employees;
 }
+
+function searchEmloyee($conn,$searchBy,$value){
+    $stmt = $conn->prepare("SELECT * FROM employee WHERE $searchBy LIKE ?");
+    $stmt->bind_param('s',$value);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $employees = [];
+
+    while($emp = $result->fetch_assoc())
+    array_push($employees,$emp);
+
+    return $employees;
+}
+
+function deleteEmployee($conn,$id){
+    $stmt = $conn->prepare("DELETE FROM `employee` WHERE `employee`.`employeeID` = ?");
+    $stmt->bind_param('s',$id);
+    return $stmt->execute();
+}
