@@ -31,7 +31,7 @@ function deleteProduct($conn, $productID)
 function getProducts($conn, $by = false, $value = false)
 {
 
-    $sql = "SELECT product.*,category.catName,brand.brandName, count(stock.id) as quantity 
+    $sql = "SELECT product.*,category.catName,brand.brandName, count(stock.id) as quantity,stock.ref 
     FROM (brand JOIN product JOIN category ON brand.brandID = product.brandID 
     AND product.categoyID = category.categoryID) 
     LEFT JOIN stock on stock.id = product.id  and stock.sold IS NULL";
