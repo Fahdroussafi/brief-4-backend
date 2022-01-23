@@ -1,9 +1,8 @@
 <?php
 
 session_start();
-
+if (isset($_SESSION['logedIn']) && $_SESSION['logedIn']) header('location: dashboard.php');
 require_once 'inc/db.login.php';
-
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
