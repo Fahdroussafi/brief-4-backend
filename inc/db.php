@@ -86,3 +86,10 @@ function getBrands($conn)
 
     return $brands;
 }
+
+function sellProduct($conn,$ref){
+    $today = date('Y-m-d');
+    $stmt = $conn->prepare("UPDATE `stock` SET `sold` = '$today' WHERE `stock`.`ref`=?");
+    $stmt->bind_param('i',$ref);
+    return $stmt->execute();
+}

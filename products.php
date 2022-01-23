@@ -20,8 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && !empty($_POST['select'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
     if (deleteProduct($conn, $_POST['id'])) {
+        header('refresh:0;url=products.php');
         echo "<script>alert('Item deleted successfully.')</script>";
-        header('location:products.php');
+    } else echo "<script>alert('Oops somthing went wrong!')</script>";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['sell'])) {
+    $ref = $_POST['ref'];
+    if(!$ref){
+        header('refresh:0;url=products.php');
+        echo "<script>alert('Oops this products is unavailbale!')</script>";
+        exit;
+    }
+    if (sellProduct($conn, $_POST['ref'])) {
+        echo "<script>alert('Item sold successfully.')</script>";
+        header('refresh:0;url=products.php');
     } else echo "<script>alert('Oops somthing went wrong!')</script>";
 }
 
@@ -127,8 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                                 <td>
                                     <ul class="action--list">
                                         <li>
-                                            <form method="POST" action="updateproduct.php">
-                                                <input type="hidden" name="id" value="<?= $product['ref'] ?>">
+                                            <form method="POST" action="products.php">
+                                                <input type="hidden" name="ref" value="<?= $product['ref'] ?>">
                                                 <button style="background:transparent;border:none;" name="sell" type="submit"><img class="sell-img" src="./assets/img/sell.png" alt=""></button>
                                             </form>
                                         </li>
