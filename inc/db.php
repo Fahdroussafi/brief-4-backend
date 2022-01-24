@@ -92,7 +92,7 @@ function sellProduct($conn, $ref)
     $today = date('Y-m-d');
     $stmt = $conn->prepare("UPDATE `stock` SET `sold` = '$today' WHERE `stock`.`ref`=?");
     $stmt->bind_param('i', $ref);
-    return $stmt->execute();
+    return $stmt->execute(); 
 }
 
 function updateProduct($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)
@@ -111,3 +111,21 @@ function updateStock($conn,$id ,$qty)
         $stmt->execute();
     }
 }
+
+function getStats($conn){
+    $stats = [];
+    $result = $conn->query("SELECT count(id) FROM product");    
+    $stats['nbrProductrs'] = $result->fetch_row()[0];
+    
+    $result = $conn->query("SELECT count(categoryID) FROM category");    
+    $stats['nbrCategories'] = $result->fetch_row()[0];
+    
+    $result = $conn->query("SELECT count(brandID) FROM brand");    
+    $stats['nbrBrands'] = $result->fetch_row()[0];
+    
+    $result = $conn->query("SELECT count(ref) FROM stock WHERE sold IS NOT NULL");    
+    $stats['sold'] = $result->fetch_row()[0];
+
+    return $stats;
+}
+
