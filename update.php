@@ -12,12 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
     $price = $_POST['price'];
     $gender = $_POST['gender'];
     $desc = $_POST['desc'];
-    $image = $_POST['image'];
+    $image = time().$_FILES["image"]["name"];
     $qty = $_POST['quantity'] - $_POST['prevQuantity'];
 
     if (updateProduct($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)){
         updateStock($conn,$id ,$qty);
         echo '<script>alert("Product updated successfully")</script>';
+        // upload image
+        $target = 'uploads/products/';
+        $target = $target.$image;
+
+        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target))
+            echo '<script>alert("Something went wrong while uploading the product image!")</script>';
+
     }else echo ' <script>alert("Ops somthing went wrong!")</script>';
     header('refresh:0;url=products.php');
 } else {

@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
             <section class="section section--form">
                 <h2 class="title--mobile">Update Product</h2>
                 <div class="form--wrapper">
-                    <form action="update.php" method="POST">
+                    <form action="update.php" method="POST" enctype="multipart/form-data">
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">

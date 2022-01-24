@@ -99,7 +99,7 @@ function updateProduct($conn, $id, $name, $brandID, $catID, $volume, $price, $ge
 {
     $sql = "UPDATE `product` SET `brandID` = ?, `categoyID` = ?, `name` = ?, `volume` = ?, `price` = ?, `gender` = ?, `image` = ?, `description` = ? WHERE `product`.`id` = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('iisddsssi', $brandID, $catID, $name, $volume, $price, $gender, $desc, $image, $id);
+    $stmt->bind_param('iisddsssi', $brandID, $catID, $name, $volume, $price, $gender, $image, $desc, $id);
     return $stmt->execute();
 }
 
