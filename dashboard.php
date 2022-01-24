@@ -23,7 +23,7 @@ auth();
         <div class="hr"></div>
         <aside class="aside">
             <div class="logo">
-                <h1><span class="p">P</span><span class="middle">arfume</span><span class="art">.art</span></h1>
+                <h1><span class="p">P</span><span class="middle">erfume</span><span class="art">.art</span></h1>
             </div>
             <nav class="nav">
                 <ul>
