@@ -87,9 +87,18 @@ function getBrands($conn)
     return $brands;
 }
 
-function sellProduct($conn,$ref){
+function sellProduct($conn, $ref)
+{
     $today = date('Y-m-d');
     $stmt = $conn->prepare("UPDATE `stock` SET `sold` = '$today' WHERE `stock`.`ref`=?");
-    $stmt->bind_param('i',$ref);
+    $stmt->bind_param('i', $ref);
+    return $stmt->execute();
+}
+
+function updateProducts($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)
+{
+    $sql = "UPDATE `product` SET `brandID` = ?, `categoyID` = ?, `name` = ?, `volume` = ?, `price` = ?, `gender` = ?, `image` = ?, `description` = ? WHERE `product`.`id` = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('iisddsssi', $brandID, $catID, $name, $volume, $price, $gender, $desc, $image, $id);
     return $stmt->execute();
 }

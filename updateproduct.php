@@ -4,25 +4,6 @@ auth();
 
 require_once 'inc/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
-
-    $id = $_POST['id'];
-
-    $brands = getBrands($conn);
-    $categories = getCategories($conn);
-    $product = getProducts($conn,'product.id',$id)[0];
-
-}else{
-    header('location:products.php');
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
-    // TODO
-}
-
-
-require_once 'inc/db.php';
-
 $product = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
@@ -33,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
 } else {
     header('location:products.php');
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                     <li class="nav-link"><a href="dashboard.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
                     <li class="nav-link"><a href="products.php"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
                     <li class="nav-link"><a href="addproduct.php"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
-                    <?php if ($_SESSION['role'] == 'admin'): ?>
-                    <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
-                    <li class="nav-link"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add Employee</span></a></li>
+                    <?php if ($_SESSION['role'] == 'admin') : ?>
+                        <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
+                        <li class="nav-link"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add Employee</span></a></li>
                     <?php endif; ?>
                     <li class="nav-link logout"><a href="#"><img src="./assets/img/logout.svg" aria-hidden="true"><span>Logout</span></a></li>
                 </ul>
@@ -93,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
             <section class="section section--form">
                 <h2 class="title--mobile">Update Product</h2>
                 <div class="form--wrapper">
-                    <form action="updateproduct.php method=" POST">
+                    <form action="update.php" method="POST">
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">
@@ -103,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                             <div class="input-group">
                                 <label for="brand">Brand</label>
                                 <select required name="brand" id="brand">
-                                    <option value="">Select</option>                                 
+                                    <option value="">Select</option>
                                     <?php foreach ($brands as $brand) : ?>
                                         <option value="<?= $brand['brandID'] ?>"><?= $brand['brandName'] ?></option>
                                     <?php endforeach; ?>
@@ -131,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                             </div>
                             <div class="input-group">
                                 <label for="quantity">Quantity</label>
-                                <input required value="<?= $product['quantity'] ?>" min="1" type="number" name="quantity" id="quantity">
+                                <input required value="<?= $product['quantity'] ?>" min="<?= $product['quantity'] ?>" type="number" name="quantity" id="quantity">
                             </div>
                         </div>
                         <!-- row -->
@@ -141,11 +121,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                                 <div class="gender">
                                     <div class="radio-group">
                                         <label for="male">Male</label>
-                                        <input required type="radio" name="gender" id="male">
+                                        <input required type="radio" name="gender" value="male" id="male">
                                     </div>
                                     <div class="radio-group">
                                         <label for="female">Female</label>
-                                        <input required type="radio" name="gender" id="female">
+                                        <input required type="radio" name="gender" value="female" id="female">
                                     </div>
                                 </div>
                             </div>
@@ -154,28 +134,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                         <div class="row">
                             <div class="input-group">
                                 <label for="desc">Description</label>
-                                <input value="<?= $product['description'] ?>" class="desc"  type="text" name="desc" placeholder="Enter description...">
+                                <input value="<?= $product['description'] ?>" class="desc" type="text" name="desc" placeholder="Enter description...">
                             </div>
                         </div>
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">
                                 <label for="image">Image</label>
-                                <input required type="file" value="<?= $product['image']; ?>" name="image" id="image">
+                                <input required type="file" value="<?= $product['image'] ?>" name="image" id="image">
                             </div>
                         </div>
+                        <input type="hidden" name="id" value="<?= $product['id'] ?>">
                         <div class="btn-group">
-                            <button type="submit" value="update" onClick="update()" name="update">Update</button>
+                            <button type="submit" name="updateProduct">Update</button>
                         </div>
                     </form>
-                    <script>
-                        function update() {
-                            var x;
-                            if (confirm("Updated data Sucessfully") == true) {
-                                x = "update";
-                            }
-                        }
-                    </script>
                 </div>
             </section>
         </main>
