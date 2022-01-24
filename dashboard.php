@@ -1,6 +1,12 @@
 <?php
 require_once 'inc/auth.php';
 auth();
+require_once 'inc/db.php';
+
+$statistics = getStats($conn);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,10 +36,10 @@ auth();
                     <li class="nav-link current"><a href="#"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
                     <li class="nav-link"><a href="products.php"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
                     <li class="nav-link"><a href="addproduct.php"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
-                    <?php if ($_SESSION['role'] == 'admin'): ?>
-                    <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
-                    <li class="nav-link"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add Employee</span></a></li>
-                    <?php endif; ?>    
+                    <?php if ($_SESSION['role'] == 'admin') : ?>
+                        <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
+                        <li class="nav-link"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add Employee</span></a></li>
+                    <?php endif; ?>
                     <li class="nav-link logout"><a href="#"><img src="./assets/img/logout.svg" aria-hidden="true"><span>Logout</span></a></li>
                 </ul>
             </nav>
@@ -62,7 +68,7 @@ auth();
                 <div class="cards">
                     <div class="card total">
                         <div class="card-body">
-                            <span class="number">230</span>
+                            <span class="number"><?= $statistics['nbrProductrs'] ?></span>
                             <img src="./assets/img/shopping-bag.svg">
                         </div>
                         <div class="card-footer">
@@ -71,7 +77,7 @@ auth();
                     </div>
                     <div class="card sold">
                         <div class="card-body">
-                            <span class="number">230</span>
+                            <span class="number"><?= $statistics['sold'] ?></span>
                             <img src="./assets/img/done-all.svg">
                         </div>
                         <div class="card-footer">
@@ -80,7 +86,7 @@ auth();
                     </div>
                     <div class="card categories">
                         <div class="card-body">
-                            <span class="number">230</span>
+                            <span class="number"><?= $statistics['nbrCategories'] ?></span>
                             <img src="./assets/img/point-duplicate.svg">
                         </div>
                         <div class="card-footer">
@@ -89,7 +95,7 @@ auth();
                     </div>
                     <div class="card brands">
                         <div class="card-body">
-                            <span class="number">230</span>
+                            <span class="number"><?= $statistics['nbrBrands'] ?></span>
                             <img src="./assets/img/spray-can.svg">
                         </div>
                         <div class="card-footer">
