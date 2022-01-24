@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['sell'])) {
                                 <td><?= $product['name'] ?></td>
                                 <td><?= $product['brandName'] ?></td>
                                 <td class="category"><?= $product['catName'] ?></td>
-                                <td class="product-img"><img src="./assets/products/1.jpg" alt="1"></td>
+                                <td class="product-img"><img src="./uploads/products/<?= $product['image'] ?>" alt="1"></td>
                                 <td class="quantity"><?= $product['quantity'] ?></td>
                                 <td><?= $product['volume'] ?></td>
                                 <td><?= $product['price'] ?>$</td>

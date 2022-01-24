@@ -15,11 +15,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $price = $_POST['price'];
     $gender = $_POST['gender'];
     $desc = $_POST['desc'];
-    $image = $_POST['image'];
+    $image = time().$_FILES["image"]["name"];
     $qty = $_POST['quantity'];
     
-    if (insertProduct($conn,$name,$brandID,$catID,$volume,$price,$gender,$desc,$image,$qty)>0)
-    echo '<script>alert("Product added successfully")</script>';
+    if (insertProduct($conn,$name,$brandID,$catID,$volume,$price,$gender,$desc,$image,$qty)>0){
+        echo '<script>alert("Product added successfully")</script>';
+        // upload image
+        $target = 'uploads/products/';
+        $target = $target.$image;
+
+        if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target))
+            echo '<script>alert("Something went wrong while uploading the product image!")</script>';
+    }
     else echo '<script>alert("Product added successfully")</script>';
     
 }
@@ -83,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <section class="section section--form">
                 <h2 class="title--mobile">Add Product</h2>
                 <div class="form--wrapper">
-                    <form action="addproduct.php" method="POST">
+                    <form action="addproduct.php" method="POST" enctype="multipart/form-data">
                         <!-- row -->
                         <div class="row">
                             <div class="input-group">
