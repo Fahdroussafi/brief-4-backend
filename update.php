@@ -13,11 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProduct'])) {
     $gender = $_POST['gender'];
     $desc = $_POST['desc'];
     $image = $_POST['image'];
-    $qty = $_POST['quantity'];
+    $qty = $_POST['quantity'] - $_POST['prevQuantity'];
 
-    if (updateProducts($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image))
+    if (updateProduct($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)){
+        updateStock($conn,$id ,$qty);
         echo '<script>alert("Product updated successfully")</script>';
-    else echo ' <script>alert("Ops somthing went wrong!")</script>';
+    }else echo ' <script>alert("Ops somthing went wrong!")</script>';
     header('refresh:0;url=products.php');
 } else {
     header('location:products.php');

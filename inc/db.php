@@ -95,10 +95,19 @@ function sellProduct($conn, $ref)
     return $stmt->execute();
 }
 
-function updateProducts($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)
+function updateProduct($conn, $id, $name, $brandID, $catID, $volume, $price, $gender, $desc, $image)
 {
     $sql = "UPDATE `product` SET `brandID` = ?, `categoyID` = ?, `name` = ?, `volume` = ?, `price` = ?, `gender` = ?, `image` = ?, `description` = ? WHERE `product`.`id` = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('iisddsssi', $brandID, $catID, $name, $volume, $price, $gender, $desc, $image, $id);
     return $stmt->execute();
+}
+
+function updateStock($conn,$id ,$qty)
+{
+    for ($i = 0; $i < $qty; $i++) {
+        $stmt = $conn->prepare("INSERT INTO `stock` (`ref`, `id`) VALUES (NULL, ?)");
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+    }
 }

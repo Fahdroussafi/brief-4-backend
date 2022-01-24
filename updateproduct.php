@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                             <div class="input-group">
                                 <label for="quantity">Quantity</label>
                                 <input required value="<?= $product['quantity'] ?>" min="<?= $product['quantity'] ?>" type="number" name="quantity" id="quantity">
+                                <input type="hidden" name="prevQuantity" value="<?= $product['quantity'] ?>">
                             </div>
                         </div>
                         <!-- row -->
