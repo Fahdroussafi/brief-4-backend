@@ -59,6 +59,7 @@ auth();
             </div>
             <!-- section : statistics -->
             <section class="stats">
+                <h2 class="title--mobile">Dashboard</h2>
                 <div class="cards">
                     <div class="card total">
                         <div class="card-body">
@@ -96,6 +97,10 @@ auth();
                             Brands
                         </div>
                     </div>
+                </div>
+                <!-- chart -->
+                <div class="chart" style="margin-top:30px;">
+                    <canvas id="chart"></canvas>
                 </div>
             </section>
         </main>
