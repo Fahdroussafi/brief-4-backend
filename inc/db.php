@@ -129,3 +129,13 @@ function getStats($conn){
     return $stats;
 }
 
+function getEachMonthSales($conn){
+    $result = $conn->query("SELECT COUNT(MONTH(sold)) as itemsSold FROM `stock` WHERE sold IS NOT NULL GROUP BY MONTH(sold)");    
+    $sales = [];
+
+    while($rec = $result->fetch_assoc())
+    array_push($sales,$rec['itemsSold']);
+
+    return $sales;
+}
+

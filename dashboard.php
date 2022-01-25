@@ -105,12 +105,61 @@ $statistics = getStats($conn);
                     </div>
                 </div>
                 <!-- chart -->
-                <div class="chart" style="margin-top:30px;">
-                    <canvas id="chart"></canvas>
+                <div class="chart" style="margin:50px 0;padding-bottom:50px;" style="height: 350px;width:350px;">
+                    <canvas id="myChart"></canvas>
                 </div>
             </section>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        
+        fetch('statistics.php')
+        .then(response=>response.json())
+        .then(stats => {
+                const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December'],
+                    datasets: [{
+                        label: 'Selling line',
+                        data: stats,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    title:{
+                        display:true,
+                        text:'Selling line from January 2021 to December 2021',
+                        fontSize:30
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
