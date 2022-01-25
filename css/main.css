@@ -124,6 +124,8 @@ ul{
     margin-left: var(--aside-width);
     flex-grow: 1;
     margin-bottom: 4em;
+    width: calc(100% - var(--aside-width));
+
 }
 
 .main--top{
