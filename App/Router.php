@@ -49,6 +49,6 @@ class Router{
 
         }
 
-        call_user_func_array($callBack,array_merge($_GET,$_POST));
+        call_user_func_array($callBack,[array_merge($_GET,$_POST)]);
     }
 }
