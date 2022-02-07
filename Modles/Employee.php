@@ -19,4 +19,18 @@ class Employee extends Database {
         return $employees;
     }
 
+    public function searchEmloyee($searchBy,$value){
+        $stmt = $this->conn->prepare("SELECT * FROM employee WHERE $searchBy LIKE ?");
+        $stmt->bind_param('s',$value);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $employees = [];
+    
+        while($emp = $result->fetch_assoc())
+        array_push($employees,$emp);
+    
+        return $employees;
+    }
+
 }

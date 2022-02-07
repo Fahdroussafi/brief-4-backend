@@ -74,8 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                             <img src="./assets/img/avatar.svg" alt="avatar">
                         </div>
                         <div>
-                            <div class="username"><?= $_SESSION['user']['username'] ?></div>
-                            <div class="email"><?= $_SESSION['user']['email'] ?></div>
+                            <div class="username">< ?= $_SESSION['user']['username'] ?></div>
+                            <div class="email">< ?= $_SESSION['user']['email'] ?></div>
                         </div>
                     </div>
                     <div class="logout">
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                 <!-- row -->
                 <div class="section--header">
                     <h3>All Employees</h3>
-                    <form action="employees.php" method="POST">
+                    <form action="employees" method="POST">
                         <select name="select" id="select">
                             <option value="">Select</option>
                             <option value="employeeID">By ID</option>

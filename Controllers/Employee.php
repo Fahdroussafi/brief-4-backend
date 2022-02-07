@@ -2,19 +2,27 @@
 
 class Employees extends  BaseController {
 
-
-
     public function getEmployees(){
         $mdl = $this->getModleInstance('Employee');
         $this->data = $mdl->selectEmployees();
-        //echo '<pre>';
-        //print_r($this->data);
-
         $this->view("Views/employees",$this->data);
     }
 
-    public function __get($attr){
-        return $this->$attr;
+    public function getEmployeeBy($params){
+        $mdl = $this->getModleInstance('Employee');
+
+        if (isset($params['select'])) {
+            if (!empty($params['select'])) {
+                $searchBY = $params['select'];
+                $value = $params['value'];
+                $this->data = $mdl->searchEmloyee($searchBY,"%$value%");
+                $this->view("Views/employees",$this->data);
+                return;
+            }
+        }
+
+        $this->getEmployees();
+
     }
 
     public function __set($attr,$value){
