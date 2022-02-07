@@ -1,4 +1,5 @@
 <?php
+/*
 require_once 'inc/auth.php';
 auth('admin');
 
@@ -23,7 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
         }   
     }
 }
-
+*/
+// echo '<pre>';
+// print_r($this->data);
+// return;
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($employees as $employee) : ?>
+                            <?php foreach ($this->data as $employee) : ?>
                                 <tr>
                                     <td><?= $employee['employeeID'] ?></td>
                                     <td><?= $employee['username'] ?></td>

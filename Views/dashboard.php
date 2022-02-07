@@ -120,7 +120,7 @@ $statistics = getStats($conn);
         .then(response=>response.json())
         .then(stats => {
                 const myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'December'],
                     datasets: [{
