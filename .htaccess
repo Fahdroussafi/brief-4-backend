@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+
+RewriteEngine on
+
+RewriteBase /parfum
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# push every request to index
+RewriteRule ^(.*)$ index.php/$1 [QSA]
+
+# RewriteRule ^(.*)$ index.php/$1 [L]
