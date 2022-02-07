@@ -1,35 +1,3 @@
-<?php
-/*
-require_once 'inc/auth.php';
-auth('admin');
-
-require_once 'inc/db.admin.php';
-
-
-$employees = getEmployees($conn);
-
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['select'])) {
-    if (!empty($_POST['select'])) {
-        $searchBY = $_POST['select'];
-        $value = $_POST['value'];
-        $employees = searchEmloyee($conn,$searchBY,"%$value%");
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['delete'])) {
-    if (!empty($_POST['id'])) {
-        $employeeID = $_POST['id'];
-        if (deleteEmployee($conn,$employeeID)) {
-            header('location: employees.php');
-        }   
-    }
-}
-*/
-// echo '<pre>';
-// print_r($this->data);
-// return;
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
