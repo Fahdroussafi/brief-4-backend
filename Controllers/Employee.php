@@ -25,6 +25,43 @@ class Employees extends  BaseController {
 
     }
 
+    public function showForm(){
+        $this->view('Views/addemployee');
+    }
+
+    public function addEmployee(){
+
+        $mdl = $this->getModleInstance('Employee');
+
+        if (!isset($_POST['id']) || !isset($_POST['username']) || !isset($_POST['passwd'])) {
+            $data['message'] = 'ID, Username and password are required!';
+            $this->view('Views/addemployee',$data);
+            return;
+        }
+
+        $employeeID = $_POST['id'];
+
+        if ($mdl->employeeExist($employeeID)) {
+            $data['message'] = "ID: $employeeID already exist!";
+            $this->view('Views/addemployee',$data);
+            return;
+        }
+
+        $username = $_POST['username'];
+        $passwd = $_POST['passwd'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        
+        if($mdl->insertEmployee($employeeID, $username, $passwd, $phone, $email)){
+            $data['message'] = 'Employee added successfully!';
+            $this->view('Views/addemployee',$data);
+            return;
+        }
+
+        $data['message'] = 'Ops somthing went wrong!';
+        $this->view('Views/addemployee',$data);
+    }
+
     public function __set($attr,$value){
         $this->$attr = $value;
     }

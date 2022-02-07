@@ -1,32 +1,6 @@
-<?php
-require_once 'inc/auth.php';
-auth('admin');
-
-require_once 'inc/db.admin.php';
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $employeeID = $_POST['id'];
-    $username = $_POST['username'];
-    $passwd = $_POST['passwd'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-
-    if (idExist($conn,$employeeID)) {
-        header("location:addemployee.php?idexisterr=$employeeID");
-    }
-
-    if (insertEmployee($conn, $employeeID, $username, $passwd, $phone, $email) > 0)
-        echo '<script>alert("Employee added successfully")</script>';
-    else echo '<script>alert("Employee added successfully")</script>';
-}
-
-if (isset($_GET['idexisterr']) && $_GET['idexisterr']){
-    echo "<script>alert('ID: ". htmlentities($_GET['idexisterr']) ."   already exist!');</script>";
-}
-
-?>
+<?php if(isset($data['message']) && !empty($data['message'])): ?>
+    <script> alert('<?= $data['message'] ?>') </script>
+<?php endif;?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,11 +25,11 @@ if (isset($_GET['idexisterr']) && $_GET['idexisterr']){
             </div>
             <nav class="nav">
                 <ul>
-                    <li class="nav-link"><a href="dashboard.php"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
-                    <li class="nav-link"><a href="products.php"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
-                    <li class="nav-link"><a href="addproduct.php"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
-                    <li class="nav-link"><a href="employees.php"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
-                    <li class="nav-link current"><a href="addemployee.php"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add
+                    <li class="nav-link"><a href="dashboard"><img src="./assets/img/dashboard.svg" aria-hidden="true"><span>Dashboard</span></a></li>
+                    <li class="nav-link"><a href="products"><img src="./assets/img/product.svg" aria-hidden="true"><span>Products</span></a></li>
+                    <li class="nav-link"><a href="addproduct"><img src="./assets/img/add-product.svg" aria-hidden="true"><span>Add Product</span></a></li>
+                    <li class="nav-link"><a href="employees"><img src="./assets/img/users.svg" aria-hidden="true"><span>Employees</span></a></li>
+                    <li class="nav-link current"><a href="addemployee"><img src="./assets/img/add-user.svg" aria-hidden="true"><span>Add
                                 Employee</span></a></li>
                     <li class="nav-link logout"><a href="#"><img src="./assets/img/logout.svg" aria-hidden="true"><span>Logout</span></a></li>
                 </ul>
@@ -71,8 +45,8 @@ if (isset($_GET['idexisterr']) && $_GET['idexisterr']){
                             <img src="./assets/img/avatar.svg" alt="avatar">
                         </div>
                         <div>
-                            <div class="username"><?= $_SESSION['user']['username'] ?></div>
-                            <div class="email"><?= $_SESSION['user']['email'] ?></div>
+                            <div class="username">< ?= $_SESSION['user']['username'] ?></div>
+                            <div class="email">< ?= $_SESSION['user']['email'] ?></div>
                         </div>
                     </div>
                     <div class="logout">
@@ -84,7 +58,7 @@ if (isset($_GET['idexisterr']) && $_GET['idexisterr']){
             <section class="section section--form employee--form">
                 <h2 class="title--mobile">Add Employee</h2>
                 <div class="form--wrapper">
-                    <form action="addemployee.php" method="POST">
+                    <form action="addemployee" method="POST">
                         <div class="input-group">
                             <label for="id">ID (i.e: national identity card number)</label>
                             <input required type="text" name="id" id="id" placeholder="EX63763">

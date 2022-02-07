@@ -33,4 +33,20 @@ class Employee extends Database {
         return $employees;
     }
 
+    public function employeeExist($id){
+        $stmt = $this->conn->prepare("SELECT * FROM employee WHERE employeeID=?");
+        $stmt->bind_param('s',$id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows > 0;
+    }
+
+    public function insertEmployee($employeeID, $username, $passwd, $phone, $email){
+        $sql = "INSERT INTO `employee` (`employeeID`,`username`,`passwd`,`phone`,`email`) VALUES (?,?,?,?,?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('sssss', $employeeID, $username, $passwd, $phone, $email);
+
+        return $stmt->execute();
+    }
+
 }

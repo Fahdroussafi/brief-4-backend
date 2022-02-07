@@ -20,4 +20,6 @@ class Database{
             die("Ops something went wrong...");
         }
     }
+
+    
 }
