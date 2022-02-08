@@ -24,7 +24,7 @@ class Router{
 
     public function run(){
 
-        $requestPath = $_SERVER['PATH_INFO'] ? $_SERVER['PATH_INFO'] : '/';
+        $requestPath = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/';
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 
         $callBack = null;

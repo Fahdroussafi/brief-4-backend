@@ -1,3 +1,6 @@
+<?php if(isset($this->data['message'])): ?>
+    <script>alert('<?= $this->data['message'] ?>')</script>
+<?php endif; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +84,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($this->data as $employee) : ?>
+                            <?php foreach ($this->data['employees'] as $employee) : ?>
                                 <tr>
                                     <td><?= $employee['employeeID'] ?></td>
                                     <td><?= $employee['username'] ?></td>
@@ -91,7 +94,7 @@
                                         <ul class="action--list">
                                             <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
                                             <li>
-                                            <form method="POST" action="employees.php">
+                                            <form method="POST" action="employees">
                                                 <input type="hidden" name="id" value="<?= $employee['employeeID'] ?>">
                                                 <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
                                             </form>

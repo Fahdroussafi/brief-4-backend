@@ -4,7 +4,7 @@ class Employees extends  BaseController {
 
     public function getEmployees(){
         $mdl = $this->getModleInstance('Employee');
-        $this->data = $mdl->selectEmployees();
+        $this->data['employees'] = $mdl->selectEmployees();
         $this->view("Views/employees",$this->data);
     }
 
@@ -12,16 +12,14 @@ class Employees extends  BaseController {
         $mdl = $this->getModleInstance('Employee');
 
         if (isset($params['select'])) {
+            echo 'is set';
             if (!empty($params['select'])) {
                 $searchBY = $params['select'];
                 $value = $params['value'];
-                $this->data = $mdl->searchEmloyee($searchBY,"%$value%");
+                $this->data['employees'] = $mdl->searchEmloyee($searchBY,"%$value%");
                 $this->view("Views/employees",$this->data);
-                return;
-            }
+            }else  $this->getEmployees();
         }
-
-        $this->getEmployees();
 
     }
 
@@ -60,6 +58,27 @@ class Employees extends  BaseController {
 
         $data['message'] = 'Ops somthing went wrong!';
         $this->view('Views/addemployee',$data);
+    }
+
+    public function removeEmployee($params){
+        
+        // dump($params);
+
+        if (isset($params['delete'])) {
+            $mdl = $this->getModleInstance('Employee');
+            $id =  $params['id'];
+
+            if($mdl->deleteEmployee($id)){
+                $this->data['message'] = 'Employee removed successfully';
+            }else{
+                $this->data['message']  = 'Ops somthing went wrong!';
+            }
+
+            $this->getEmployees();
+
+        }
+
+
     }
 
     public function __set($attr,$value){

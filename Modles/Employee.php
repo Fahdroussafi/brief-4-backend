@@ -49,4 +49,10 @@ class Employee extends Database {
         return $stmt->execute();
     }
 
+    public function deleteEmployee($id){
+        $stmt = $this->conn->prepare("DELETE FROM `employee` WHERE `employee`.`employeeID` = ?");
+        $stmt->bind_param('s',$id);
+        return $stmt->execute();
+    }
+
 }

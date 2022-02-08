@@ -13,5 +13,6 @@ $router->get('/employees',[Employees::class,'getEmployees']);
 $router->post('/employees',[Employees::class,'getEmployeeBy']);
 $router->get('/addemployee',[Employees::class,'showForm']);
 $router->post('/addemployee',[Employees::class,'addEmployee']);
+$router->post('/employees',[Employees::class,'removeEmployee']);
 
 $router->run();
