@@ -1,9 +1,9 @@
 <?php
 
 
-function dump($var = 'line'){
+function dump($var = false){
     echo '<pre>';
-    if($var == 'line') {echo __LINE__;return;}
+    if(!$var) echo 'It works';
     if(is_string($var)) echo $var.'<br>';
     if(is_array($var)) print_r($var);
 }
