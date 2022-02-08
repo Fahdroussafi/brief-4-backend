@@ -27,17 +27,17 @@ class Employees extends  BaseController {
         $this->view('Views/addemployee');
     }
 
-    public function addEmployee(){
+    public function addEmployee($params){
 
         $mdl = $this->getModleInstance('Employee');
 
-        if (!isset($_POST['id']) || !isset($_POST['username']) || !isset($_POST['passwd'])) {
+        if (!isset($params['id']) || !isset($params['username']) || !isset($params['passwd'])) {
             $data['message'] = 'ID, Username and password are required!';
             $this->view('Views/addemployee',$data);
             return;
         }
 
-        $employeeID = $_POST['id'];
+        $employeeID = $params['id'];
 
         if ($mdl->employeeExist($employeeID)) {
             $data['message'] = "ID: $employeeID already exist!";
@@ -45,10 +45,10 @@ class Employees extends  BaseController {
             return;
         }
 
-        $username = $_POST['username'];
-        $passwd = $_POST['passwd'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
+        $username = $params['username'];
+        $passwd = $params['passwd'];
+        $phone = $params['phone'];
+        $email = $params['email'];
         
         if($mdl->insertEmployee($employeeID, $username, $passwd, $phone, $email)){
             $data['message'] = 'Employee added successfully!';
