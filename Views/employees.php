@@ -94,7 +94,7 @@
                                         <ul class="action--list">
                                             <li><a href="#"><img src="./assets/img/call.png" alt=""></a></li>
                                             <li>
-                                            <form method="POST" action="employees">
+                                            <form method="POST" action="employees/remove">
                                                 <input type="hidden" name="id" value="<?= $employee['employeeID'] ?>">
                                                 <button style="background:transparent;border:none;" name="delete" type="submit"><img src="./assets/img/trash-alt.png" alt=""></button>
                                             </form>

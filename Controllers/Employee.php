@@ -12,7 +12,6 @@ class Employees extends  BaseController {
         $mdl = $this->getModleInstance('Employee');
 
         if (isset($params['select'])) {
-            echo 'is set';
             if (!empty($params['select'])) {
                 $searchBY = $params['select'];
                 $value = $params['value'];
