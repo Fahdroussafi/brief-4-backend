@@ -73,9 +73,9 @@ class Employees extends  BaseController {
                 $this->data['message']  = 'Ops somthing went wrong!';
             }
 
-            $this->getEmployees();
-
-        }
+            self::redirect('employees');
+            
+        } 
 
 
     }
