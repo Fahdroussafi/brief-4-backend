@@ -19,4 +19,8 @@ class BaseController{
         return  false;
     }
 
+    public static function redirect($path){
+        header('Location:/parfum/'.$path);
+    }
+
 }
